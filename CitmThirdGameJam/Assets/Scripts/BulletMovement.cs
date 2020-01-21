@@ -72,7 +72,7 @@ public class BulletMovement : MonoBehaviour
                 }
                 else if (collision.transform.tag == "Player2")
                 {
-                    //collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
+                    collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
 
                 }
             }
