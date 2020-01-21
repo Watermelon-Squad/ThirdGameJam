@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameSceneManage : MonoBehaviour
 {
 
+    public GameObject p1WinLabelGO;
+    public GameObject p2WinLabelGO;
+
     void Start()
     {
-        
+
     }
 
     public void QuitApplication()
@@ -29,13 +33,13 @@ public class GameSceneManage : MonoBehaviour
 
     public void ShowPlayer1WinLabel()
     {
-        Debug.Log("Player 1 WINS");
-        //SceneManager.LoadScene("FinishScene");
+        if (p1WinLabelGO)
+            p1WinLabelGO.SetActive(true);
     }
 
     public void ShowPlayer2WinLabel()
     {
-        Debug.Log("Player 2 WINS");
-        //SceneManager.LoadScene("FinishScene");
+        if (p2WinLabelGO)
+            p2WinLabelGO.SetActive(true);
     }
 }
