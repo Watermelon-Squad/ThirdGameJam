@@ -59,14 +59,14 @@ public class BulletMovement : MonoBehaviour
     {
         if (parentTag != collision.transform.tag)
         {
-            if (collision.transform.tag == "ShadowPlayer1")
+            if (parentTag != "Player1" && collision.transform.tag == "ShadowPlayer1")
             {
                 //Win condition for player 1 and lose for player 2
                 sceneManaging.ShowPlayer1WinLabel();
                 sceneManaging.LoadEndSceneWait();
                 Destroy(gameObject);
             }
-            else if (collision.transform.tag == "ShadowPlayer2")
+            else if (parentTag != "Player2" && collision.transform.tag == "ShadowPlayer2")
             {
                 //Win condition for player 2 and lose for player 1
                 sceneManaging.ShowPlayer2WinLabel();
