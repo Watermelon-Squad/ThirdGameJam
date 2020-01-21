@@ -427,6 +427,7 @@ MonoBehaviour:
   p1WinLabelGO: {fileID: 923717777}
   p2WinLabelGO: {fileID: 1981262408}
   secondsToFinishScreen: 3
+  do_actions: 1
 --- !u!4 &660044559
 Transform:
   m_ObjectHideFlags: 0
