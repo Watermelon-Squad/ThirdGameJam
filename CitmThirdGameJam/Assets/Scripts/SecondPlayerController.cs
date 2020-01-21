@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class SecondPlayerController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class SecondPlayerController : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator animator;
 
+    GamePadState state; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,27 +40,29 @@ public class SecondPlayerController : MonoBehaviour
 
     void Update()
     {
+        state = GamePad.GetState(0);
+
         if (actual_shoot_time >= shoot_time)
         {
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (state.ThumbSticks.Right.Y > 0.1f)
             {
                 rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
                 animator.SetInteger("State", 0);
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (state.ThumbSticks.Right.Y < -0.1f)
             {
                 rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
                 animator.SetInteger("State", 1);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (state.ThumbSticks.Right.X > 0.1f)
             {
                 rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
                 animator.SetInteger("State", 2);
             }
-            else if (Input.GetKey(KeyCode.LeftArrow))
+            else if(state.ThumbSticks.Right.X < -0.1f)
             {
                 rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
@@ -65,6 +70,7 @@ public class SecondPlayerController : MonoBehaviour
             }
             else
             {
+                animator.SetBool("Idle", true);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
             }
         }
@@ -76,7 +82,7 @@ public class SecondPlayerController : MonoBehaviour
 
         if (actual_cooldown >= cooldown_shoot)
         {
-            if (Input.GetKeyDown("m"))
+            if (state.Buttons.RightShoulder == ButtonState.Pressed)
             {
                 actual_cooldown = 0.0f;
                 actual_shoot_time = 0.0f;

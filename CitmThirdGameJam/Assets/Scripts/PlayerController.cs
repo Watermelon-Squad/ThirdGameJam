@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public float shoot_time = 2.0f;
     private float actual_shoot_time = 0.0f;
 
+    GamePadState state;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,24 +49,25 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        state = GamePad.GetState(0);
 
         if (actual_shoot_time >= shoot_time)
         {
-            if (Input.GetKey("w"))
+            if (state.ThumbSticks.Left.Y > 0.1f)
             {
                 rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
                 // pos.y += speed * Time.deltaTime;
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
                 animator.SetInteger("State", 0);
             }
-            else if (Input.GetKey("s"))
+            else if (state.ThumbSticks.Left.Y < -0.1f)
             {
                 rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
                 //pos.y -= speed * Time.deltaTime;
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
                 animator.SetInteger("State", 1);
             }
-            else if (Input.GetKey("d"))
+            else if (state.ThumbSticks.Left.X > 0.1f)
             {
                 rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
                 //pos.x += speed * Time.deltaTime;
@@ -71,7 +75,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("State", 2);
                 //sprite.flipX = false;
             }
-            else if (Input.GetKey("a"))
+            else if (state.ThumbSticks.Left.X < -0.1f)
             {
                 rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
                 //pos.x -= speed * Time.deltaTime;
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
         if (actual_cooldown >= cooldown_shoot)
         {
-            if (Input.GetKeyDown("v"))
+            if (state.Buttons.LeftShoulder == ButtonState.Pressed)
             {
                 actual_cooldown = 0.0f;
                 actual_shoot_time = 0.0f;
