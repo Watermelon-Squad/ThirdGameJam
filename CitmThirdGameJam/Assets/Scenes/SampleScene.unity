@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da7e8f908380254fbd68b77bfb75efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3000
   shadow1: {fileID: 3584648072099518280, guid: 7c958dc762bd2394698ae27a38a726e7, type: 3}
   Bullet: {fileID: 5700175438531753274, guid: e03559f6b1ca53a4bb4894596a37f6f3, type: 3}
 --- !u!50 &86012536
