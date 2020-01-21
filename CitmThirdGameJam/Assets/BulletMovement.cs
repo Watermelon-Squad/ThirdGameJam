@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    enum PlayerDirection
+    public enum PlayerDirection
     {
         UP,
         DOWN,
@@ -16,11 +16,11 @@ public class BulletMovement : MonoBehaviour
 
     public float bulletSpeed = 0.0f;
     Rigidbody2D rb;
-    PlayerDirection pd;
+    public PlayerDirection pd;
     // Start is called before the first frame update
     void Start()
     {
-        pd = PlayerDirection.UP;
+
     }
 
     // Update is called once per frame

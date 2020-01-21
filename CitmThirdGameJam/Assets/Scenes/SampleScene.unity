@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 773752085}
   - component: {fileID: 773752084}
   - component: {fileID: 773752088}
+  - component: {fileID: 773752089}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
@@ -500,6 +501,25 @@ MonoBehaviour:
   speed: 5
   shadow1: {fileID: 5024206455792432884, guid: 2687e5315113df34aaa647892d0b41cb, type: 3}
   Bullet: {fileID: 5700175438531753274, guid: e03559f6b1ca53a4bb4894596a37f6f3, type: 3}
+--- !u!95 &773752089
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773752083}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0a882b9c4428b424d9c46e6b33cfb5b1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &857829589
 GameObject:
   m_ObjectHideFlags: 0

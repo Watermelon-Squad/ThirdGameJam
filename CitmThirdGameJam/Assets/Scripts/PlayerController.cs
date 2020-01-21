@@ -11,12 +11,17 @@ public class PlayerController : MonoBehaviour
     private GameObject shadow_child = null;
 
     public GameObject Bullet = null;
-    Vector2 bulletPos;
+    private Vector2 bulletPos;
+
+    private SpriteRenderer sprite;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         InstanciateShadow();
+        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,21 +32,27 @@ public class PlayerController : MonoBehaviour
         {
             pos.y += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
+            animator.SetInteger("State", 0);
         }
         else if (Input.GetKey("s"))
         {
             pos.y -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
+            animator.SetInteger("State", 1);
         }
         else if (Input.GetKey("d"))
         {
             pos.x += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
+            animator.SetInteger("State", 2);
+            //sprite.flipX = false;
         }
         else if (Input.GetKey("a"))
         {
             pos.x -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
+            animator.SetInteger("State", 3);
+            //sprite.flipX = true;
         }
         else
         {
@@ -53,7 +64,6 @@ public class PlayerController : MonoBehaviour
             Fire();
         }
 
-
         transform.position = pos;
     }
 
@@ -61,13 +71,34 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
+        float shootOffset = 0.75f;
         bulletPos = transform.position;
 
+        GameObject newBullet = Instantiate(Bullet, bulletPos, Quaternion.identity);
         //if facing up then bulletPos.y += something
         //if facing down then bulletPos.y -= something
         //if facing right then bulletPos.x += something
         //if facing left then bulletPos.x -= something
-        Instantiate(Bullet, bulletPos, Quaternion.identity);
+        if (animator.GetInteger("State") == 0)
+        {
+            newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.UP;
+            newBullet.transform.position = new Vector2(bulletPos.x, bulletPos.y + shootOffset);
+        }
+        else if (animator.GetInteger("State") == 1)
+        {
+            newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.DOWN;
+            newBullet.transform.position = new Vector2(bulletPos.x, bulletPos.y - shootOffset);
+        }
+        else if (animator.GetInteger("State") == 2)
+        {
+            newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.RIGHT;
+            newBullet.transform.position = new Vector2(bulletPos.x + shootOffset, bulletPos.y);
+        }
+        else if (animator.GetInteger("State") == 3)
+        {
+            newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.LEFT;
+            newBullet.transform.position = new Vector2(bulletPos.x - shootOffset, bulletPos.y);
+        }
     }
 
     private void InstanciateShadow()
