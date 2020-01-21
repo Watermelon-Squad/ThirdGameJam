@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class BulletMovement : MonoBehaviour
@@ -14,6 +13,9 @@ public class BulletMovement : MonoBehaviour
         LEFT
     }
 
+    public GameObject sceneManagingGO;
+    public GameSceneManage sceneManaging;
+
     public string parentTag = "No parent sad";
 
     public float bulletSpeed = 0.0f;
@@ -24,15 +26,15 @@ public class BulletMovement : MonoBehaviour
     {
 
         yield return new WaitForSeconds(3.0f);
-
-        SceneManager.LoadScene("FinishScene");
+        sceneManaging.LoadEndScene();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        sceneManagingGO = GameObject.Find("Scene Manager");
+        sceneManaging = sceneManagingGO.GetComponent<GameSceneManage>();
     }
 
     // Update is called once per frame
@@ -67,13 +69,13 @@ public class BulletMovement : MonoBehaviour
             if (collision.transform.tag == "ShadowPlayer1")
             {
                 //Win condition for player 1 and lose for player 2
-                Debug.Log("ShadowPlayer1");
+                sceneManaging.ShowPlayer1WinLabel();
                 StartCoroutine("WaitForSceneChange");
             }
             else if (collision.transform.tag == "ShadowPlayer2")
             {
                 //Win condition for player 2 and lose for player 1
-                Debug.Log("ShadowPlayer2");
+                sceneManaging.ShowPlayer2WinLabel();
                 StartCoroutine("WaitForSceneChange");
             }
             else
