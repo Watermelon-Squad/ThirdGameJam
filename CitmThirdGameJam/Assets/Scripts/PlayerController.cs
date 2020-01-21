@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
             {
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
             }
+
         }
         else
         {
