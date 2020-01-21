@@ -18,10 +18,19 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidbody2D;
 
+    public float cooldown_shoot = 3.0f;
+    private float actual_cooldown = 0.0f;
+
+    public float shoot_time = 2.0f;
+    private float actual_shoot_time = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        InstanciateShadow(Vector2.down);
+        actual_cooldown = cooldown_shoot;
+        actual_shoot_time = shoot_time;
+        InstanciateShadow(transform.position);
+
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -30,40 +39,63 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey("w"))
+        if (actual_shoot_time >= shoot_time)
         {
-            rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
-            shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
-            animator.SetInteger("State", 0);
-        }
-        else if (Input.GetKey("s"))
-        {
-            rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
-            shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
-            animator.SetInteger("State", 1);
-        }
-        else if (Input.GetKey("d"))
-        {
-            rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
-            shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
-            animator.SetInteger("State", 2);
-            //sprite.flipX = false;
-        }
-        else if (Input.GetKey("a"))
-        {
-            rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
-            shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
-            animator.SetInteger("State", 3);
-            //sprite.flipX = true;
+            if (Input.GetKey("w"))
+            {
+                rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
+                // pos.y += speed * Time.deltaTime;
+                shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
+                animator.SetInteger("State", 0);
+            }
+            else if (Input.GetKey("s"))
+            {
+                rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
+                //pos.y -= speed * Time.deltaTime;
+                shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
+                animator.SetInteger("State", 1);
+            }
+            else if (Input.GetKey("d"))
+            {
+                rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
+                //pos.x += speed * Time.deltaTime;
+                shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
+                animator.SetInteger("State", 2);
+                //sprite.flipX = false;
+            }
+            else if (Input.GetKey("a"))
+            {
+                rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
+                //pos.x -= speed * Time.deltaTime;
+                shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
+                animator.SetInteger("State", 3);
+                //sprite.flipX = true;
+            }
+            else
+            {
+                shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
+            }
+
         }
         else
         {
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
+            actual_shoot_time += Time.deltaTime;
         }
+           
 
-        if (Input.GetKeyDown("v"))
+        if (actual_cooldown >= cooldown_shoot)
         {
-            Fire();
+            if (Input.GetKeyDown("v"))
+            {
+                actual_cooldown = 0.0f;
+                actual_shoot_time = 0.0f;
+                Fire();
+            }
+        }
+        else
+        {
+            actual_cooldown += Time.deltaTime;
         }
 
     }
@@ -76,10 +108,9 @@ public class PlayerController : MonoBehaviour
         bulletPos = transform.position;
 
         GameObject newBullet = Instantiate(Bullet, bulletPos, Quaternion.identity);
-        //if facing up then bulletPos.y += something
-        //if facing down then bulletPos.y -= something
-        //if facing right then bulletPos.x += something
-        //if facing left then bulletPos.x -= something
+
+        newBullet.GetComponent<BulletMovement>().parentTag = transform.tag;
+
         if (animator.GetInteger("State") == 0)
         {
             newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.UP;
@@ -118,12 +149,11 @@ public class PlayerController : MonoBehaviour
         //Player Die
         /*animator.setAnimation("PlayerDie")*/
         //Swap position with shadow
-        Vector2 player_die_position = transform.position;
         transform.position = shadow_child.transform.position;
         //Delete old shadow
         Destroy(shadow_child);
         //Create new shadow in last player position
-        InstanciateShadow(player_die_position);
+        InstanciateShadow(transform.position);
     }
 
 }
