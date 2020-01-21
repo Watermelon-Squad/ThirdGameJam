@@ -13,8 +13,8 @@ public class BulletMovement : MonoBehaviour
         LEFT
     }
 
-    public GameObject sceneManagingGO;
-    public GameSceneManage sceneManaging;
+    private GameObject sceneManagingGO;
+    private GameSceneManage sceneManaging;
 
     public string parentTag = "No parent sad";
 
