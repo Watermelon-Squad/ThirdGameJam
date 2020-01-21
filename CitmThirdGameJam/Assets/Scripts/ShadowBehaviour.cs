@@ -35,14 +35,13 @@ public class ShadowBehaviour : MonoBehaviour
             if(actual_time >= delay)
             {
 
-                PlayerInput actual_action;
-
-                if (playerInput.Count == 0)
+                if(playerInput.Count == 0)
                 {
-                    actual_action = PlayerInput.NONE;
+                    int x = 0;
                 }
-                else
-                    actual_action = playerInput.Dequeue();
+
+
+                PlayerInput actual_action = playerInput.Dequeue();
 
                 if (actual_action == PlayerInput.UP)
                 {
@@ -76,9 +75,6 @@ public class ShadowBehaviour : MonoBehaviour
 
     public void SetPlayerInput(PlayerInput input)
     {
-        if (playerInput == null)
-            playerInput = new Queue<PlayerInput>();
-
         playerInput.Enqueue(input);
     }
 
