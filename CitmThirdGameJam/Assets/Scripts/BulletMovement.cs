@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 
 public class BulletMovement : MonoBehaviour
@@ -19,10 +19,20 @@ public class BulletMovement : MonoBehaviour
     public float bulletSpeed = 0.0f;
     Rigidbody2D rb;
     public PlayerDirection pd;
+
+    IEnumerator WaitForSceneChange()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+
+        SceneManager.LoadScene("FinishScene");
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
@@ -47,7 +57,6 @@ public class BulletMovement : MonoBehaviour
             pos.x -= bulletSpeed * Time.deltaTime;
         }
 
-
         transform.position = pos;
     }
 
@@ -58,26 +67,35 @@ public class BulletMovement : MonoBehaviour
             if (collision.transform.tag == "ShadowPlayer1")
             {
                 //Win condition for player 1 and lose for player 2
+                Debug.Log("ShadowPlayer1");
+                StartCoroutine("WaitForSceneChange");
             }
             else if (collision.transform.tag == "ShadowPlayer2")
             {
                 //Win condition for player 2 and lose for player 1
+                Debug.Log("ShadowPlayer2");
+                StartCoroutine("WaitForSceneChange");
             }
             else
             {
                 if (collision.transform.tag == "Player1")
                 {
+                    Debug.Log("Player1");
                     collision.transform.GetComponent<PlayerController>().DieInPresent();
 
                 }
                 else if (collision.transform.tag == "Player2")
                 {
+                    Debug.Log("Player2");
                     collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
 
                 }
             }
 
         }
+
+   
+
     }
 }
 
