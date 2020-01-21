@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum AnimStates
+    {
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        IDLE_NONE
+    }
 
     public float speed = 0.0f;
 
@@ -73,12 +81,14 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                animator.SetBool("Idle", true);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
             }
 
         }
         else
         {
+            animator.SetBool("Idle", true);
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
             actual_shoot_time += Time.deltaTime;
         }
@@ -104,6 +114,8 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
+        animator.SetBool("Shoot", true);
+
         float shootOffset = 0.75f;
         bulletPos = transform.position;
 
@@ -156,4 +168,8 @@ public class PlayerController : MonoBehaviour
         InstanciateShadow(transform.position);
     }
 
+    public void stopShoot()
+    {
+        animator.SetBool("Shoot", false);
+    }
 }
