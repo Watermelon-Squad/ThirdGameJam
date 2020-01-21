@@ -52,25 +52,25 @@ public class SecondPlayerController : MonoBehaviour
 
             if (actual_shoot_time >= shoot_time)
             {
-                if (state.ThumbSticks.Right.Y > 0.1f)
+                if (state.ThumbSticks.Right.Y > 0.1f || Input.GetKey(KeyCode.UpArrow))
                 {
                     rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
                     animator.SetInteger("State", 0);
                 }
-                else if (state.ThumbSticks.Right.Y < -0.1f)
+                else if (state.ThumbSticks.Right.Y < -0.1f || Input.GetKey(KeyCode.DownArrow))
                 {
                     rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
                     animator.SetInteger("State", 1);
                 }
-                else if (state.ThumbSticks.Right.X > 0.1f)
+                else if (state.ThumbSticks.Right.X > 0.1f || Input.GetKey(KeyCode.RightArrow))
                 {
                     rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
                     animator.SetInteger("State", 2);
                 }
-                else if (state.ThumbSticks.Right.X < -0.1f)
+                else if (state.ThumbSticks.Right.X < -0.1f || Input.GetKey(KeyCode.LeftArrow))
                 {
                     rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
@@ -90,7 +90,7 @@ public class SecondPlayerController : MonoBehaviour
 
             if (actual_cooldown >= cooldown_shoot)
             {
-                if (state.Buttons.RightShoulder == ButtonState.Pressed)
+                if (state.Buttons.RightShoulder == ButtonState.Pressed || Input.GetKeyDown("m"))
                 {
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
