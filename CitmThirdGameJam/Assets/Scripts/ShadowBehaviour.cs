@@ -76,6 +76,9 @@ public class ShadowBehaviour : MonoBehaviour
 
     public void SetPlayerInput(PlayerInput input)
     {
+        if (playerInput == null)
+            playerInput = new Queue<PlayerInput>();
+
         playerInput.Enqueue(input);
     }
 
