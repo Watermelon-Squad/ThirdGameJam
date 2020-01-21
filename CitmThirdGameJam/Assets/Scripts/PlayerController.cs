@@ -16,40 +16,46 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator animator;
 
+    private Rigidbody2D rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
         InstanciateShadow(Vector2.down);
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        Vector3 pos = transform.position;
 
         if (Input.GetKey("w"))
         {
-            pos.y += speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
+            // pos.y += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
             animator.SetInteger("State", 0);
         }
         else if (Input.GetKey("s"))
         {
-            pos.y -= speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
+            //pos.y -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
             animator.SetInteger("State", 1);
         }
         else if (Input.GetKey("d"))
         {
-            pos.x += speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
+            //pos.x += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
             animator.SetInteger("State", 2);
             //sprite.flipX = false;
         }
         else if (Input.GetKey("a"))
         {
-            pos.x -= speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
+            //pos.x -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
             animator.SetInteger("State", 3);
             //sprite.flipX = true;
@@ -64,7 +70,6 @@ public class PlayerController : MonoBehaviour
             Fire();
         }
 
-        transform.position = pos;
     }
 
 

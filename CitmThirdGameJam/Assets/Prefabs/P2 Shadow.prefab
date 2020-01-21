@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2923366040067319398}
   - component: {fileID: 4730708789087699745}
   - component: {fileID: 7700334993680014027}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P2 Shadow
   m_TagString: ShadowPlayer2
   m_Icon: {fileID: 0}
@@ -121,14 +121,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 15
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7700334993680014027
 MonoBehaviour:
   m_ObjectHideFlags: 0

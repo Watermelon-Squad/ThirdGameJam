@@ -12,34 +12,37 @@ public class SecondPlayerController : MonoBehaviour
     public GameObject Bullet = null;
     Vector2 bulletPos;
 
+    private Rigidbody2D rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
         InstanciateShadow(Vector2.down);
+
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        Vector3 pos = transform.position;
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            pos.y += speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            pos.y -= speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            pos.x += speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            pos.x -= speed * Time.deltaTime;
+            rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
         }
         else
@@ -53,7 +56,6 @@ public class SecondPlayerController : MonoBehaviour
         }
 
 
-        transform.position = pos;
     }
 
 
