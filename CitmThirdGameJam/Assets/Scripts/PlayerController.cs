@@ -33,21 +33,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("w"))
         {
             rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
-            // pos.y += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
             animator.SetInteger("State", 0);
         }
         else if (Input.GetKey("s"))
         {
             rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
-            //pos.y -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
             animator.SetInteger("State", 1);
         }
         else if (Input.GetKey("d"))
         {
             rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
-            //pos.x += speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
             animator.SetInteger("State", 2);
             //sprite.flipX = false;
@@ -55,7 +52,6 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey("a"))
         {
             rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
-            //pos.x -= speed * Time.deltaTime;
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
             animator.SetInteger("State", 3);
             //sprite.flipX = true;
