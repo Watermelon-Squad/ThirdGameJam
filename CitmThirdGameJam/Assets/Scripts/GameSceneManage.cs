@@ -10,6 +10,7 @@ public class GameSceneManage : MonoBehaviour
     public GameObject p1WinLabelGO;
     public GameObject p2WinLabelGO;
     public float secondsToFinishScreen = 0.0f;
+    public bool do_actions = true;
 
     void Start()
     {
@@ -44,11 +45,15 @@ public class GameSceneManage : MonoBehaviour
     {
         if (p1WinLabelGO)
             p1WinLabelGO.SetActive(true);
+
+        do_actions = false;
     }
 
     public void ShowPlayer2WinLabel()
     {
         if (p2WinLabelGO)
             p2WinLabelGO.SetActive(true);
+
+        do_actions = false;
     }
 }
