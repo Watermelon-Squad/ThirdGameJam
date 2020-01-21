@@ -9,6 +9,7 @@ public class GameSceneManage : MonoBehaviour
 
     public GameObject p1WinLabelGO;
     public GameObject p2WinLabelGO;
+    public float secondsToFinishScreen = 0.0f;
 
     void Start()
     {
@@ -26,9 +27,17 @@ public class GameSceneManage : MonoBehaviour
     }
 
 
-    public void LoadEndScene()
+    IEnumerator WaitForSceneChange()
     {
+        yield return new WaitForSeconds(secondsToFinishScreen);
+        Debug.Log("ENTRA");
         SceneManager.LoadScene("FinishScene");
+
+    }
+
+    public void LoadEndSceneWait()
+    {
+        StartCoroutine("WaitForSceneChange");
     }
 
     public void ShowPlayer1WinLabel()

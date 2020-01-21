@@ -426,6 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p1WinLabelGO: {fileID: 923717777}
   p2WinLabelGO: {fileID: 1981262408}
+  secondsToFinishScreen: 3
 --- !u!4 &660044559
 Transform:
   m_ObjectHideFlags: 0

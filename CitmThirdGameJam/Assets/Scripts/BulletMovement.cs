@@ -22,13 +22,6 @@ public class BulletMovement : MonoBehaviour
     Rigidbody2D rb;
     public PlayerDirection pd;
 
-    IEnumerator WaitForSceneChange()
-    {
-
-        yield return new WaitForSeconds(3.0f);
-        sceneManaging.LoadEndScene();
-
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -70,14 +63,14 @@ public class BulletMovement : MonoBehaviour
             {
                 //Win condition for player 1 and lose for player 2
                 sceneManaging.ShowPlayer1WinLabel();
-                StartCoroutine("WaitForSceneChange");
+                sceneManaging.LoadEndSceneWait();
                 Destroy(gameObject);
             }
             else if (collision.transform.tag == "ShadowPlayer2")
             {
                 //Win condition for player 2 and lose for player 1
                 sceneManaging.ShowPlayer2WinLabel();
-                StartCoroutine("WaitForSceneChange");
+                sceneManaging.LoadEndSceneWait();
                 Destroy(gameObject);
             }
             else
