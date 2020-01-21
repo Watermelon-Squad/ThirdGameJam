@@ -14,6 +14,8 @@ public class BulletMovement : MonoBehaviour
         LEFT
     }
 
+    public string parentTag = "No parent sad";
+
     public float bulletSpeed = 0.0f;
     Rigidbody2D rb;
     public PlayerDirection pd;
@@ -48,4 +50,34 @@ public class BulletMovement : MonoBehaviour
 
         transform.position = pos;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (parentTag != collision.transform.tag)
+        {
+            if (collision.transform.tag == "ShadowPlayer1")
+            {
+                //Win condition for player 1 and lose for player 2
+            }
+            else if (collision.transform.tag == "ShadowPlayer2")
+            {
+                //Win condition for player 2 and lose for player 1
+            }
+            else
+            {
+                if (collision.transform.tag == "Player1")
+                {
+                    collision.transform.GetComponent<PlayerController>().DieInPresent();
+
+                }
+                else if (collision.transform.tag == "Player2")
+                {
+                    //collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
+
+                }
+            }
+
+        }
+    }
 }
+

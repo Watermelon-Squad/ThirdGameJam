@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InstanciateShadow();
+        InstanciateShadow(Vector2.down);
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
@@ -101,12 +101,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void InstanciateShadow()
+    private void InstanciateShadow(Vector2 position)
     {
         if (shadow1 != null)
-            shadow_child = Instantiate(shadow1);
+            if (position == Vector2.down)
+                shadow_child = Instantiate(shadow1);
+            else
+                shadow_child = Instantiate(shadow1, position, Quaternion.identity);
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
+    }
+
+    public void DieInPresent()
+    {
+        //Player Die
+        /*animator.setAnimation("PlayerDie")*/
+        //Swap position with shadow
+        Vector2 player_die_position = transform.position;
+        transform.position = shadow_child.transform.position;
+        //Delete old shadow
+        Destroy(shadow_child);
+        //Create new shadow in last player position
+        InstanciateShadow(player_die_position);
     }
 
 }
