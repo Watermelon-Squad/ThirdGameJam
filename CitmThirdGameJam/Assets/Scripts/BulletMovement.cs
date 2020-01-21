@@ -71,12 +71,14 @@ public class BulletMovement : MonoBehaviour
                 //Win condition for player 1 and lose for player 2
                 sceneManaging.ShowPlayer1WinLabel();
                 StartCoroutine("WaitForSceneChange");
+                Destroy(gameObject);
             }
             else if (collision.transform.tag == "ShadowPlayer2")
             {
                 //Win condition for player 2 and lose for player 1
                 sceneManaging.ShowPlayer2WinLabel();
                 StartCoroutine("WaitForSceneChange");
+                Destroy(gameObject);
             }
             else
             {
@@ -84,15 +86,18 @@ public class BulletMovement : MonoBehaviour
                 {
                     Debug.Log("Player1");
                     collision.transform.GetComponent<PlayerController>().DieInPresent();
-
+                    Destroy(gameObject);
                 }
                 else if (collision.transform.tag == "Player2")
                 {
                     Debug.Log("Player2");
                     collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
-
+                    Destroy(gameObject);
                 }
             }
+
+            if (collision.transform.tag == "Obstacle")
+                Destroy(gameObject);
 
         }
 
