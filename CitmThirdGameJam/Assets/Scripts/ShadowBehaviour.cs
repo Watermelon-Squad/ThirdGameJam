@@ -16,12 +16,15 @@ public class ShadowBehaviour : MonoBehaviour
     private float actual_time = 0.0f;
 
     private float player_vel = 0.0f;
-    
+
+    private Rigidbody2D rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
         playerInput = new Queue<PlayerInput>();
         do_action = true;
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,7 +34,6 @@ public class ShadowBehaviour : MonoBehaviour
         {
             if(actual_time >= delay)
             {
-                Vector3 pos = transform.position;
 
                 if(playerInput.Count == 0)
                 {
@@ -43,26 +45,25 @@ public class ShadowBehaviour : MonoBehaviour
 
                 if (actual_action == PlayerInput.UP)
                 {
-                    pos.y += player_vel * Time.deltaTime;
+                    rigidbody2D.AddForce(Vector2.up * player_vel * Time.deltaTime);
 
                 }
                 else if (actual_action == PlayerInput.DOWN)
                 {
-                    pos.y -= player_vel * Time.deltaTime;
- 
+                    rigidbody2D.AddForce(Vector2.down * player_vel * Time.deltaTime);
+
                 }
                 else if (actual_action == PlayerInput.RIGHT)
                 {
-                    pos.x += player_vel * Time.deltaTime;
+                    rigidbody2D.AddForce(Vector2.right * player_vel * Time.deltaTime);
 
                 }
                 else if (actual_action == PlayerInput.LEFT)
                 {
-                    pos.x -= player_vel * Time.deltaTime;
+                    rigidbody2D.AddForce(Vector2.left * player_vel * Time.deltaTime);
 
                 }
 
-                transform.position = pos;
 
             }
             else
