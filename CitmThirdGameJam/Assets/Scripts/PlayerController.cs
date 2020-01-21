@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shadow1 = null;
     private GameObject shadow_child = null;
+
+    public GameObject Bullet = null;
+    Vector2 bulletPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +48,26 @@ public class PlayerController : MonoBehaviour
             shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
         }
 
+        if (Input.GetKeyDown("v"))
+        {
+            Fire();
+        }
+
 
         transform.position = pos;
+    }
+
+
+
+    private void Fire()
+    {
+        bulletPos = transform.position;
+
+        //if facing up then bulletPos.y += something
+        //if facing down then bulletPos.y -= something
+        //if facing right then bulletPos.x += something
+        //if facing left then bulletPos.x -= something
+        Instantiate(Bullet, bulletPos, Quaternion.identity);
     }
 
     private void InstanciateShadow()
@@ -55,4 +77,5 @@ public class PlayerController : MonoBehaviour
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
     }
+
 }
