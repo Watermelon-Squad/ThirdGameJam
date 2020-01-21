@@ -1,0 +1,13 @@
+Idle Right - 0-5
+Idle Up - 6-9
+Idle Left - 10-15
+Idle Down - 16-19
+Walk Right - 20 - 27
+Walk Up - 28 - 35
+Walk Left - 36 - 43
+Walk Down - 44 - 51
+Shoot Right - 52 - 60
+Shoot Up - 61 - 69
+Shoot Left - 70 - 78
+Shoot Down - 79 - 87
+Respawn - 88 - 106
