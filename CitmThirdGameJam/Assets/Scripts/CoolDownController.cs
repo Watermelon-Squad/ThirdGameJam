@@ -21,7 +21,7 @@ public class CoolDownController : MonoBehaviour
     void Update()
     {
 
-        if (anim.GetBool("Shoot"))
+        if (anim.GetBool("Shoot") && !isCooldown)
         {
             isCooldown = true;
             imageCooldown.fillAmount = 1;
