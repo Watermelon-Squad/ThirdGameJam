@@ -22,6 +22,7 @@ public class BulletMovement : MonoBehaviour
     Rigidbody2D rb;
     public PlayerDirection pd;
 
+    private bool enter = true;
 
     // Start is called before the first frame update
     void Start()
@@ -57,8 +58,10 @@ public class BulletMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (parentTag != collision.transform.tag)
+        if (parentTag != collision.transform.tag && enter)
         {
+            enter = false;
+
             if (parentTag != "Player1" && collision.transform.tag == "ShadowPlayer1")
             {
                 //Win condition for player 1 and lose for player 2
@@ -67,7 +70,7 @@ public class BulletMovement : MonoBehaviour
 
                 collision.transform.GetComponent<PlayerController>().DieInPast();
 
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
             else if (parentTag != "Player2" && collision.transform.tag == "ShadowPlayer2")
             {
@@ -77,7 +80,7 @@ public class BulletMovement : MonoBehaviour
 
                 collision.transform.GetComponent<PlayerController>().DieInPast();
 
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
             else
             {
@@ -85,18 +88,18 @@ public class BulletMovement : MonoBehaviour
                 {
                     Debug.Log("Player1");
                     collision.transform.GetComponent<PlayerController>().DieInPresent();
-                    Destroy(gameObject);
+                    Destroy(this.gameObject);
                 }
                 else if (collision.transform.tag == "Player2")
                 {
                     Debug.Log("Player2");
                     collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
-                    Destroy(gameObject);
+                    Destroy(this.gameObject);
                 }
             }
 
             if (collision.transform.tag == "Obstacle")
-                Destroy(gameObject);
+                Destroy(this.gameObject);
 
         }
 

@@ -12,6 +12,8 @@ public class GameSceneManage : MonoBehaviour
     public float secondsToFinishScreen = 0.0f;
     public bool do_actions = true;
 
+    int player_win = 0;
+
     public Animator transition;
     public float transitionTime = 1.0f;
 
@@ -55,6 +57,8 @@ public class GameSceneManage : MonoBehaviour
         if (p1WinLabelGO)
             p1WinLabelGO.SetActive(true);
 
+        StaticData.Win = 1;
+
         do_actions = false;
     }
 
@@ -62,6 +66,8 @@ public class GameSceneManage : MonoBehaviour
     {
         if (p2WinLabelGO)
             p2WinLabelGO.SetActive(true);
+
+        StaticData.Win = 0;
 
         do_actions = false;
     }
