@@ -27,7 +27,7 @@ public class GameSceneManage : MonoBehaviour
 
     public void LoadMainScene()
     {
-        StartCoroutine(LoadSceneFade("MainScene"));
+        StartCoroutine(LoadSceneFade("Story"));
     }
 
 
