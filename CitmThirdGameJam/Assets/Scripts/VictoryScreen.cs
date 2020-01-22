@@ -17,11 +17,11 @@ public class VictoryScreen : MonoBehaviour
     {
         if(StaticData.Win == 0)
         {
-            wins[0].active = true;
+            wins[1].active = true;
         }
         if (StaticData.Win == 1)
         {
-            wins[1].active = true;
+            wins[0].active = true;
         }
     }
 }
