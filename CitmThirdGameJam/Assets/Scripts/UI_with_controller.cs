@@ -31,6 +31,8 @@ public class UI_with_controller : MonoBehaviour
     GameSceneManage gameSceneManage;
 
     public Button start;
+    public Button rematch;
+    public Button exit;
 
     ButtonSelected selected_butt = ButtonSelected.Button_None;
     public Screen screen = Screen.Screen_Start;
@@ -63,22 +65,28 @@ public class UI_with_controller : MonoBehaviour
         state = GamePad.GetState(playerIndex);
         state = GamePad.GetState((PlayerIndex)0);
 
-        if (state.ThumbSticks.Left.X > 0.95f)
+        if (state.ThumbSticks.Left.X > 0.95f) //Right
         {
             if(screen == Screen.Screen_Start)
                 HandleStartButt();
-            //else if(screen == Screen.Screen_Finish)
 
-
-            Debug.Log("Input Right");
+            else if(screen == Screen.Screen_Finish)
+            {
+                EventSystem.current.SetSelectedGameObject(exit.gameObject);
+                selected_butt = ButtonSelected.Button_Exit;
+            }
         }
 
-        if (state.ThumbSticks.Left.X < -0.95f)
+        if (state.ThumbSticks.Left.X < -0.95f) //Left
         {
             if (screen == Screen.Screen_Start)
                 HandleStartButt();
-            //else if(screen == Screen.Screen_Finish)
-            Debug.Log("Input Left");
+
+            else if(screen == Screen.Screen_Finish)
+            {
+                EventSystem.current.SetSelectedGameObject(rematch.gameObject);
+                selected_butt = ButtonSelected.Button_Rematch;
+            }
         }
 
         if (state.Buttons.A == ButtonState.Pressed)
