@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private GameSceneManage sceneManaging = null;
 
+    private AnimStates lastState = AnimStates.IDLE_NONE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,12 @@ public class PlayerController : MonoBehaviour
                     // pos.y += speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
                     animator.SetInteger("State", 0);
+                    lastState = AnimStates.UP;
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                 }
                 else if (state.ThumbSticks.Left.Y < -0.1f || Input.GetKey("s"))
                 {
@@ -74,6 +82,12 @@ public class PlayerController : MonoBehaviour
                     //pos.y -= speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
                     animator.SetInteger("State", 1);
+                    lastState = AnimStates.DOWN;
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                 }
                 else if (state.ThumbSticks.Left.X > 0.1f || Input.GetKey("d"))
                 {
@@ -81,6 +95,12 @@ public class PlayerController : MonoBehaviour
                     //pos.x += speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
                     animator.SetInteger("State", 2);
+                    lastState = AnimStates.RIGHT;
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                     //sprite.flipX = false;
                 }
                 else if (state.ThumbSticks.Left.X < -0.1f || Input.GetKey("a"))
@@ -89,18 +109,32 @@ public class PlayerController : MonoBehaviour
                     //pos.x -= speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
                     animator.SetInteger("State", 3);
+                    lastState = AnimStates.LEFT;
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                     //sprite.flipX = true;
                 }
                 else
                 {
-                    animator.SetBool("Idle", true);
+                    if (!animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", true);
+                    }
+                    animator.SetInteger("State", -1);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
                 }
 
             }
             else
             {
-                animator.SetBool("Idle", true);
+                if (!animator.GetBool("Idle"))
+                {
+                    animator.SetBool("Idle", true);
+                }
+                animator.SetInteger("State", -1);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
                 actual_shoot_time += Time.deltaTime;
             }
@@ -135,22 +169,22 @@ public class PlayerController : MonoBehaviour
 
         newBullet.GetComponent<BulletMovement>().parentTag = transform.tag;
 
-        if (animator.GetInteger("State") == 0)
+        if (animator.GetInteger("State") == 0 || lastState == AnimStates.UP)
         {
             newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.UP;
             newBullet.transform.position = new Vector2(bulletPos.x, bulletPos.y + shootOffset);
         }
-        else if (animator.GetInteger("State") == 1)
+        else if (animator.GetInteger("State") == 1 || lastState == AnimStates.DOWN)
         {
             newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.DOWN;
             newBullet.transform.position = new Vector2(bulletPos.x, bulletPos.y - shootOffset);
         }
-        else if (animator.GetInteger("State") == 2)
+        else if (animator.GetInteger("State") == 2 || lastState == AnimStates.RIGHT)
         {
             newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.RIGHT;
             newBullet.transform.position = new Vector2(bulletPos.x + shootOffset, bulletPos.y);
         }
-        else if (animator.GetInteger("State") == 3)
+        else if (animator.GetInteger("State") == 3 || lastState == AnimStates.LEFT)
         {
             newBullet.GetComponent<BulletMovement>().pd = BulletMovement.PlayerDirection.LEFT;
             newBullet.transform.position = new Vector2(bulletPos.x - shootOffset, bulletPos.y);
