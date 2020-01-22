@@ -17,7 +17,7 @@ public class ShadowBehaviour : MonoBehaviour
 
     private float player_vel = 0.0f;
 
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigidbody2D = null;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +64,10 @@ public class ShadowBehaviour : MonoBehaviour
                     rigidbody2D.AddForce(Vector2.left * player_vel * Time.deltaTime);
 
                 }
+                else if (actual_action == PlayerInput.SHOOT)
+                {
 
+                }
 
             }
             else

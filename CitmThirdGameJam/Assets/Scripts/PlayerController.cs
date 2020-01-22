@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
                 {
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
+                    shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.SHOOT);
                     Fire();
                 }
             }
@@ -242,6 +243,11 @@ public class PlayerController : MonoBehaviour
         InstanciateShadow(transform.position);
 
         animator.SetInteger("State", 6);
+    }
+
+    public void DieInPast()
+    {
+        animator.SetInteger("State", 7);
     }
 
     public void stopShoot()
