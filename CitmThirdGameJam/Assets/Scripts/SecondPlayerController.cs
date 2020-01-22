@@ -181,7 +181,7 @@ public class SecondPlayerController : MonoBehaviour
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.SHOOT);
-                    Fire();
+                    NotReallyFire();
                 }
             }
             else
@@ -191,10 +191,13 @@ public class SecondPlayerController : MonoBehaviour
         }
     }
 
-    private void Fire()
+    private void NotReallyFire()
     {
         animator.SetBool("Shoot", true);
+    }
 
+    public void Fire()
+    { 
         float shootOffset = 0.3f;
         bulletPos = transform.position;
 
