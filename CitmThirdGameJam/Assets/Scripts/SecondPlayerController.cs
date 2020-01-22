@@ -169,6 +169,7 @@ public class SecondPlayerController : MonoBehaviour
                 {
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
+                    shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.SHOOT);
                     Fire();
                 }
             }
