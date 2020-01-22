@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.SHOOT);
-                    Fire();
+                    NotReallyFire();
                 }
             }
             else
@@ -231,6 +231,7 @@ public class PlayerController : MonoBehaviour
                 shadow_child = Instantiate(shadow1, position);
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
+        shadow_child.GetComponent<ShadowBehaviour>().player_parent = gameObject;
     }
 
     public void DieInPresent()
