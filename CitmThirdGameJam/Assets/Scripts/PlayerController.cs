@@ -14,6 +14,13 @@ public class PlayerController : MonoBehaviour
         IDLE_NONE
     }
 
+    public KeyCode up_input;
+    public KeyCode down_input;
+    public KeyCode left_input;
+    public KeyCode right_input;
+    public KeyCode shoot_input;
+    
+
     public float speed = 0.0f;
 
     public GameObject shadow1 = null;
@@ -63,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
             if (actual_shoot_time >= shoot_time)
             {
-                if (state.ThumbSticks.Left.Y > 0.1f || Input.GetKey("w"))
+                if (state.ThumbSticks.Left.Y > 0.1f || Input.GetKey(up_input))
                 {
                     rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
                     // pos.y += speed * Time.deltaTime;
@@ -76,7 +83,7 @@ public class PlayerController : MonoBehaviour
                         animator.SetBool("Idle", false);
                     }
                 }
-                else if (state.ThumbSticks.Left.Y < -0.1f || Input.GetKey("s"))
+                else if (state.ThumbSticks.Left.Y < -0.1f || Input.GetKey(down_input))
                 {
                     rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
                     //pos.y -= speed * Time.deltaTime;
@@ -89,7 +96,7 @@ public class PlayerController : MonoBehaviour
                         animator.SetBool("Idle", false);
                     }
                 }
-                else if (state.ThumbSticks.Left.X > 0.1f || Input.GetKey("d"))
+                else if (state.ThumbSticks.Left.X > 0.1f || Input.GetKey(right_input))
                 {
                     rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
                     //pos.x += speed * Time.deltaTime;
@@ -103,7 +110,7 @@ public class PlayerController : MonoBehaviour
                     }
                     //sprite.flipX = false;
                 }
-                else if (state.ThumbSticks.Left.X < -0.1f || Input.GetKey("a"))
+                else if (state.ThumbSticks.Left.X < -0.1f || Input.GetKey(left_input))
                 {
                     rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
                     //pos.x -= speed * Time.deltaTime;
@@ -142,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
             if (actual_cooldown >= cooldown_shoot)
             {
-                if (state.Buttons.LeftShoulder == ButtonState.Pressed || Input.GetKey("v"))
+                if (state.Buttons.LeftShoulder == ButtonState.Pressed || Input.GetKey(shoot_input))
                 {
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
