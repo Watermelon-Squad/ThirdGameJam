@@ -10,6 +10,8 @@ public class StorySkip : MonoBehaviour
     public GameSceneManage sceneManage;
 
     int i = 0;
+    bool transitioning_scene = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +23,17 @@ public class StorySkip : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
-            story[i].active = false;
-            i++;
+                story[i].active = false;
+                i++;
         }
 
         if(i == 3)
         {
-            if (sceneManage)
+            if (sceneManage && !transitioning_scene)
+            {
                 sceneManage.LoadMainScene();
+                transitioning_scene = true;
+            }
         }
     }
 }
