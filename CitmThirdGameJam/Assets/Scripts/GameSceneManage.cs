@@ -34,9 +34,7 @@ public class GameSceneManage : MonoBehaviour
     IEnumerator WaitForSceneChange()
     {
         yield return new WaitForSeconds(secondsToFinishScreen);
-        Debug.Log("ENTRA");
-        SceneManager.LoadScene("FinishScene");
-
+        StartCoroutine(LoadSceneFade("FinishScene"));
     }
 
     IEnumerator LoadSceneFade(string scene)
