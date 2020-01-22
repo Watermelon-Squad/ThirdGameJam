@@ -19,12 +19,16 @@ public class ShadowBehaviour : MonoBehaviour
 
     private Rigidbody2D rigidbody2D = null;
 
+    private Animator anim = null;
+
     // Start is called before the first frame update
     void Start()
     {
         playerInput = new Queue<PlayerInput>();
         do_action = true;
         rigidbody2D = GetComponent<Rigidbody2D>();
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,6 +44,7 @@ public class ShadowBehaviour : MonoBehaviour
                 if (playerInput.Count == 0)
                 {
                     actual_action = PlayerInput.NONE;
+                    
                 }
                 else
                     actual_action = playerInput.Dequeue();
@@ -47,26 +52,54 @@ public class ShadowBehaviour : MonoBehaviour
                 if (actual_action == PlayerInput.UP)
                 {
                     rigidbody2D.AddForce(Vector2.up * player_vel * Time.deltaTime);
+                    anim.SetInteger("State", 0);
+                    if (anim.GetBool("Idle"))
+                    {
+                        anim.SetBool("Idle", false);
+                    }
 
                 }
                 else if (actual_action == PlayerInput.DOWN)
                 {
                     rigidbody2D.AddForce(Vector2.down * player_vel * Time.deltaTime);
+                    anim.SetInteger("State", 1);
+                    if (anim.GetBool("Idle"))
+                    {
+                        anim.SetBool("Idle", false);
+                    }
 
                 }
                 else if (actual_action == PlayerInput.RIGHT)
                 {
                     rigidbody2D.AddForce(Vector2.right * player_vel * Time.deltaTime);
+                    anim.SetInteger("State", 2);
+                    if (anim.GetBool("Idle"))
+                    {
+                        anim.SetBool("Idle", false);
+                    }
 
                 }
                 else if (actual_action == PlayerInput.LEFT)
                 {
                     rigidbody2D.AddForce(Vector2.left * player_vel * Time.deltaTime);
+                    anim.SetInteger("State", 3);
+                    if (anim.GetBool("Idle"))
+                    {
+                        anim.SetBool("Idle", false);
+                    }
 
+                }
+                else if (actual_action == PlayerInput.WAIT)
+                {
+                    if (!anim.GetBool("Idle"))
+                    {
+                        anim.SetBool("Idle", true);
+                    }
+                    anim.SetInteger("State", -1);
                 }
                 else if (actual_action == PlayerInput.SHOOT)
                 {
-
+                    anim.SetBool("Shoot", true);
                 }
 
             }
@@ -93,5 +126,10 @@ public class ShadowBehaviour : MonoBehaviour
     public void setVel(float pvel)
     {
         player_vel = pvel;
+    }
+
+    public void stopShoot()
+    {
+        anim.SetBool("Shoot", false);
     }
 }
