@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 546934468}
   - component: {fileID: 546934469}
   - component: {fileID: 546934470}
+  - component: {fileID: 546934471}
   m_Layer: 0
   m_Name: Scene Manager
   m_TagString: Untagged
@@ -249,6 +250,22 @@ MonoBehaviour:
   wins:
   - {fileID: 214654714}
   - {fileID: 898311551}
+--- !u!114 &546934471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546934467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0896e98718ea164478e1ecbc744cde0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 0}
+  rematch: {fileID: 1402863644}
+  exit: {fileID: 1282394381}
+  screen: 1
 --- !u!1 &714335948
 GameObject:
   m_ObjectHideFlags: 0
