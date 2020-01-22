@@ -243,7 +243,8 @@ public class SecondPlayerController : MonoBehaviour
     {
         //Player Die
         /*animator.setAnimation("PlayerDie")*/
-        animator.SetInteger("State", 6);
+        //animator.SetInteger("State", 6);
+        animator.Play("DeadPlayer 1");
         //Swap position with shadow
         transform.position = shadow_child.transform.position;
         //Delete old shadow
