@@ -240,6 +240,8 @@ public class PlayerController : MonoBehaviour
         Destroy(shadow_child);
         //Create new shadow in last player position
         InstanciateShadow(transform.position);
+
+        animator.SetInteger("State", 6);
     }
 
     public void stopShoot()
