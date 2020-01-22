@@ -24,13 +24,14 @@ public class CoolDownController : MonoBehaviour
         if (anim.GetBool("Shoot"))
         {
             isCooldown = true;
+            imageCooldown.fillAmount = 1;
         }
 
         if (isCooldown)
         {
-            imageCooldown.fillAmount += 1 / cooldown * Time.deltaTime;
+            imageCooldown.fillAmount -= 1 / cooldown * Time.deltaTime;
 
-            if (imageCooldown.fillAmount >= 1)
+            if (imageCooldown.fillAmount <= 0)
             {
                 imageCooldown.fillAmount = 0;
                 isCooldown = false;
