@@ -68,7 +68,7 @@ public class BulletMovement : MonoBehaviour
                 sceneManaging.ShowPlayer1WinLabel();
                 sceneManaging.LoadEndSceneWait();
 
-                collision.transform.GetComponent<PlayerController>().DieInPast();
+                collision.transform.parent.GetComponent<PlayerController>().DieInPast();
 
                 Destroy(this.gameObject);
             }
@@ -78,7 +78,7 @@ public class BulletMovement : MonoBehaviour
                 sceneManaging.ShowPlayer2WinLabel();
                 sceneManaging.LoadEndSceneWait();
 
-                collision.transform.GetComponent<PlayerController>().DieInPast();
+                collision.transform.parent.GetComponent<PlayerController>().DieInPast();
 
                 Destroy(this.gameObject);
             }
@@ -87,13 +87,13 @@ public class BulletMovement : MonoBehaviour
                 if (collision.transform.tag == "Player1")
                 {
                     Debug.Log("Player1");
-                    collision.transform.GetComponent<PlayerController>().DieInPresent();
+                    collision.transform.parent.GetComponent<PlayerController>().DieInPresent();
                     Destroy(this.gameObject);
                 }
                 else if (collision.transform.tag == "Player2")
                 {
                     Debug.Log("Player2");
-                    collision.transform.GetComponent<SecondPlayerController>().DieInPresent();
+                    collision.transform.parent.GetComponent<SecondPlayerController>().DieInPresent();
                     Destroy(this.gameObject);
                 }
             }
