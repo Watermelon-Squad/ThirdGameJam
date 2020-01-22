@@ -387,6 +387,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 8901100448960555708, guid: d11b3516db5082a419220ed6a401d39c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     - target: {fileID: 8901100448960555702, guid: d11b3516db5082a419220ed6a401d39c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -483,6 +488,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 77921a439c0bd584bbe7aca9bf001416, type: 2}
+    - target: {fileID: 7251309975312474271, guid: d11b3516db5082a419220ed6a401d39c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11b3516db5082a419220ed6a401d39c, type: 3}
 --- !u!1 &923717777
@@ -826,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1754586041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,7 +1030,7 @@ PrefabInstance:
     - target: {fileID: 9116420351735197037, guid: 0a84897d2795ca4479b9c42caecaf596,
         type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 9116420351735197037, guid: 0a84897d2795ca4479b9c42caecaf596,
         type: 3}
