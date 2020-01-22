@@ -17,20 +17,28 @@ public class UI_with_controller : MonoBehaviour
         Button_Exit
     }
 
+    public enum Screen
+    {
+        Screen_Start,
+        Screen_Finish
+    }
+
     bool playerIndexSet = false;
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
 
+    GameSceneManage gameSceneManage;
 
     public Button start;
 
     ButtonSelected selected_butt = ButtonSelected.Button_None;
+    public Screen screen = Screen.Screen_Start;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameSceneManage = GetComponent<GameSceneManage>();
     }
 
     // Update is called once per frame
@@ -57,18 +65,39 @@ public class UI_with_controller : MonoBehaviour
 
         if (state.ThumbSticks.Left.X > 0.95f)
         {
-            HandleStartButt();
+            if(screen == Screen.Screen_Start)
+                HandleStartButt();
+            //else if(screen == Screen.Screen_Finish)
+
+
             Debug.Log("Input Right");
         }
 
         if (state.ThumbSticks.Left.X < -0.95f)
         {
-            HandleStartButt();
+            if (screen == Screen.Screen_Start)
+                HandleStartButt();
+            //else if(screen == Screen.Screen_Finish)
             Debug.Log("Input Left");
         }
 
-        if (state.Buttons.A > ButtonState.Pressed)
+        if (state.Buttons.A == ButtonState.Pressed)
         {
+            if (gameSceneManage)
+            {
+                switch (selected_butt)
+                {
+                    case ButtonSelected.Button_Start:
+                        gameSceneManage.LoadStoryScene();
+                        break;
+                    case ButtonSelected.Button_Rematch:
+                        gameSceneManage.LoadMainScene();
+                        break;
+                    case ButtonSelected.Button_Exit:
+                        gameSceneManage.QuitApplication();
+                        break;
+                }
+            }
             
         }
 
