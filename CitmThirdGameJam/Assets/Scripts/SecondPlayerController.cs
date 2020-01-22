@@ -51,7 +51,7 @@ public class SecondPlayerController : MonoBehaviour
     {
         actual_cooldown = cooldown_shoot;
         actual_shoot_time = shoot_time;
-        InstanciateShadow(transform.position);
+        InstanciateShadow(transform);
 
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -224,13 +224,13 @@ public class SecondPlayerController : MonoBehaviour
         }
     }
 
-    private void InstanciateShadow(Vector2 position)
+    private void InstanciateShadow(Transform position)
     {
         if (shadow1 != null)
-            if(position == Vector2.down)
+            if(position == null)
                 shadow_child = Instantiate(shadow1);
             else
-                shadow_child = Instantiate(shadow1,position, Quaternion.identity);
+                shadow_child = Instantiate(shadow1,position);
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
     }
@@ -244,7 +244,7 @@ public class SecondPlayerController : MonoBehaviour
         //Delete old shadow
         Destroy(shadow_child);
         //Create new shadow in last player position
-        InstanciateShadow(transform.position);
+        InstanciateShadow(transform);
 
         animator.SetInteger("State", 6);
     }
