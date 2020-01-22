@@ -11,5 +11,3 @@ Shoot Up - 61 - 69
 Shoot Left - 70 - 78
 Shoot Down - 79 - 87
 Respawn - 88 - 106
-Dead - 107 - 126
-Dead Shadow - 127 - 140
