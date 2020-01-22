@@ -238,6 +238,11 @@ public class SecondPlayerController : MonoBehaviour
         animator.SetInteger("State", 6);
     }
 
+    public void DieInPast()
+    {
+        animator.SetInteger("State", 7);
+    }
+
     public void stopShoot()
     {
         animator.SetBool("Shoot", false);
