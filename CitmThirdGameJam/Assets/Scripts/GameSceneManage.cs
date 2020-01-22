@@ -57,7 +57,7 @@ public class GameSceneManage : MonoBehaviour
         if (p1WinLabelGO)
             p1WinLabelGO.SetActive(true);
 
-        StaticData.Win = 0;
+        StaticData.Win = 1;
 
         do_actions = false;
     }
@@ -67,7 +67,7 @@ public class GameSceneManage : MonoBehaviour
         if (p2WinLabelGO)
             p2WinLabelGO.SetActive(true);
 
-        StaticData.Win = 1;
+        StaticData.Win = 0;
 
         do_actions = false;
     }
