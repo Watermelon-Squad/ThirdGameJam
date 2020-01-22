@@ -67,6 +67,11 @@ public class PlayerController : MonoBehaviour
                     // pos.y += speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.UP);
                     animator.SetInteger("State", 0);
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                 }
                 else if (state.ThumbSticks.Left.Y < -0.1f || Input.GetKey("s"))
                 {
@@ -74,6 +79,11 @@ public class PlayerController : MonoBehaviour
                     //pos.y -= speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.DOWN);
                     animator.SetInteger("State", 1);
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                 }
                 else if (state.ThumbSticks.Left.X > 0.1f || Input.GetKey("d"))
                 {
@@ -81,6 +91,11 @@ public class PlayerController : MonoBehaviour
                     //pos.x += speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.RIGHT);
                     animator.SetInteger("State", 2);
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                     //sprite.flipX = false;
                 }
                 else if (state.ThumbSticks.Left.X < -0.1f || Input.GetKey("a"))
@@ -89,18 +104,31 @@ public class PlayerController : MonoBehaviour
                     //pos.x -= speed * Time.deltaTime;
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.LEFT);
                     animator.SetInteger("State", 3);
+
+                    if (animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", false);
+                    }
                     //sprite.flipX = true;
                 }
                 else
                 {
-                    animator.SetBool("Idle", true);
+                    if (!animator.GetBool("Idle"))
+                    {
+                        animator.SetBool("Idle", true);
+                    }
+                    animator.SetInteger("State", -1);
                     shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
                 }
 
             }
             else
             {
-                animator.SetBool("Idle", true);
+                if (!animator.GetBool("Idle"))
+                {
+                    animator.SetBool("Idle", true);
+                }
+                animator.SetInteger("State", -1);
                 shadow_child.GetComponent<ShadowBehaviour>().SetPlayerInput(ShadowBehaviour.PlayerInput.WAIT);
                 actual_shoot_time += Time.deltaTime;
             }
