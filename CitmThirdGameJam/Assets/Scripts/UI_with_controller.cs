@@ -17,20 +17,30 @@ public class UI_with_controller : MonoBehaviour
         Button_Exit
     }
 
+    public enum Screen
+    {
+        Screen_Start,
+        Screen_Finish
+    }
+
     bool playerIndexSet = false;
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
 
+    GameSceneManage gameSceneManage;
 
     public Button start;
+    public Button rematch;
+    public Button exit;
 
     ButtonSelected selected_butt = ButtonSelected.Button_None;
+    public Screen screen = Screen.Screen_Start;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameSceneManage = GetComponent<GameSceneManage>();
     }
 
     // Update is called once per frame
@@ -55,20 +65,47 @@ public class UI_with_controller : MonoBehaviour
         state = GamePad.GetState(playerIndex);
         state = GamePad.GetState((PlayerIndex)0);
 
-        if (state.ThumbSticks.Left.X > 0.95f)
+        if (state.ThumbSticks.Left.X > 0.95f) //Right
         {
-            HandleStartButt();
-            Debug.Log("Input Right");
+            if(screen == Screen.Screen_Start)
+                HandleStartButt();
+
+            else if(screen == Screen.Screen_Finish)
+            {
+                EventSystem.current.SetSelectedGameObject(exit.gameObject);
+                selected_butt = ButtonSelected.Button_Exit;
+            }
         }
 
-        if (state.ThumbSticks.Left.X < -0.95f)
+        if (state.ThumbSticks.Left.X < -0.95f) //Left
         {
-            HandleStartButt();
-            Debug.Log("Input Left");
+            if (screen == Screen.Screen_Start)
+                HandleStartButt();
+
+            else if(screen == Screen.Screen_Finish)
+            {
+                EventSystem.current.SetSelectedGameObject(rematch.gameObject);
+                selected_butt = ButtonSelected.Button_Rematch;
+            }
         }
 
-        if (state.Buttons.A > ButtonState.Pressed)
+        if (state.Buttons.A == ButtonState.Pressed)
         {
+            if (gameSceneManage)
+            {
+                switch (selected_butt)
+                {
+                    case ButtonSelected.Button_Start:
+                        gameSceneManage.LoadStoryScene();
+                        break;
+                    case ButtonSelected.Button_Rematch:
+                        gameSceneManage.LoadMainScene();
+                        break;
+                    case ButtonSelected.Button_Exit:
+                        gameSceneManage.QuitApplication();
+                        break;
+                }
+            }
             
         }
 
