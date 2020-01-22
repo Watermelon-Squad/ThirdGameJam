@@ -293,7 +293,7 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &1101182045273991722
+--- !u!1101 &1101191325235196562
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,11 +301,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 6
-    m_ConditionEvent: State
+  - m_ConditionMode: 1
+    m_ConditionEvent: Shoot
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102889508473638928}
+  m_DstState: {fileID: 1102879108525312638}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -2396,7 +2396,6 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101182045273991722}
   - {fileID: 1101159589103451782}
   - {fileID: 1101635908215859384}
   - {fileID: 1101302054191778596}
@@ -2466,6 +2465,7 @@ AnimatorState:
   - {fileID: 1101791089496905722}
   - {fileID: 1101212126349825652}
   - {fileID: 1101555553432726498}
+  - {fileID: 1101191325235196562}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
