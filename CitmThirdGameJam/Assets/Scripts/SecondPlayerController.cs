@@ -39,7 +39,10 @@ public class SecondPlayerController : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator animator;
 
+    bool playerIndexSet = false;
+    PlayerIndex playerIndex;
     GamePadState state;
+    GamePadState prevState;
 
     private GameSceneManage sceneManaging = null;
     private AnimStates lastState = AnimStates.IDLE_NONE;
@@ -61,10 +64,26 @@ public class SecondPlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!playerIndexSet || !prevState.IsConnected)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                PlayerIndex testPlayerIndex = (PlayerIndex)i;
+                GamePadState testState = GamePad.GetState(testPlayerIndex);
+                if (testState.IsConnected)
+                {
+                    Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
+                    playerIndex = testPlayerIndex;
+                    playerIndexSet = true;
+                }
+            }
+        }
+
+        prevState = state;
+        state = GamePad.GetState(playerIndex);
+
         if (sceneManaging.do_actions)
         {
-            state = GamePad.GetState(0);
-
             if (actual_shoot_time >= shoot_time)
             {
                 if (state.ThumbSticks.Right.Y > 0.1f || Input.GetKey(up_input))

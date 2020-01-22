@@ -40,7 +40,10 @@ public class PlayerController : MonoBehaviour
     public float shoot_time = 2.0f;
     private float actual_shoot_time = 0.0f;
 
+    bool playerIndexSet = false;
+    PlayerIndex playerIndex;
     GamePadState state;
+    GamePadState prevState;
 
     private GameSceneManage sceneManaging = null;
 
@@ -64,9 +67,27 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!playerIndexSet || !prevState.IsConnected)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                PlayerIndex testPlayerIndex = (PlayerIndex)i;
+                GamePadState testState = GamePad.GetState(testPlayerIndex);
+                if (testState.IsConnected)
+                {
+                    Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
+                    playerIndex = testPlayerIndex;
+                    playerIndexSet = true;
+                }
+            }
+        }
+
+        prevState = state;
+        state = GamePad.GetState(playerIndex);
+
         if (sceneManaging.do_actions)
         {
-            state = GamePad.GetState(0);
+            state = GamePad.GetState((PlayerIndex)0);
 
             if (actual_shoot_time >= shoot_time)
             {
