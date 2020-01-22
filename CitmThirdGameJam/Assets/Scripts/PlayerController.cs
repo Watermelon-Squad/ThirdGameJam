@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("Shoot", true);
 
-        float shootOffset = 0.75f;
+        float shootOffset = 0.3f;
         bulletPos = transform.position;
 
         GameObject newBullet = Instantiate(Bullet, bulletPos, Quaternion.identity);
