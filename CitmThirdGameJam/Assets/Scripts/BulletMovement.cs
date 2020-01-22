@@ -58,53 +58,41 @@ public class BulletMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (parentTag != collision.transform.tag && enter)
+
+        if (collision.transform.tag == "Obstacle")
+            Destroy(this.gameObject);
+
+        else if (collision.transform.tag == "Player1" && parentTag != "Player1")
         {
-            enter = false;
-
-            if (parentTag != "Player1" && collision.transform.tag == "ShadowPlayer1")
-            {
-                //Win condition for player 1 and lose for player 2
-                sceneManaging.ShowPlayer1WinLabel();
-                sceneManaging.LoadEndSceneWait();
-
-                collision.transform.parent.GetComponent<PlayerController>().DieInPast();
-
-                Destroy(this.gameObject);
-            }
-            else if (parentTag != "Player2" && collision.transform.tag == "ShadowPlayer2")
-            {
-                //Win condition for player 2 and lose for player 1
-                sceneManaging.ShowPlayer2WinLabel();
-                sceneManaging.LoadEndSceneWait();
-
-                collision.transform.parent.GetComponent<PlayerController>().DieInPast();
-
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                if (collision.transform.tag == "Player1")
-                {
-                    Debug.Log("Player1");
-                    collision.transform.parent.GetComponent<PlayerController>().DieInPresent();
-                    Destroy(this.gameObject);
-                }
-                else if (collision.transform.tag == "Player2")
-                {
-                    Debug.Log("Player2");
-                    collision.transform.parent.GetComponent<SecondPlayerController>().DieInPresent();
-                    Destroy(this.gameObject);
-                }
-            }
-
-            if (collision.transform.tag == "Obstacle")
-                Destroy(this.gameObject);
-
+            Debug.Log("Player1 hit");
+            collision.transform.parent.GetComponent<PlayerController>().DieInPresent();
+            Destroy(this.gameObject);
         }
 
-   
+        else if (collision.transform.tag == "Player2" && parentTag != "Player2")
+        {
+            Debug.Log("Player2 hit");
+            collision.transform.parent.GetComponent<SecondPlayerController>().DieInPresent();
+            Destroy(this.gameObject);
+        }
 
+        else if (collision.transform.tag == "ShadowPlayer1" && parentTag != "Player1")
+        {
+            Debug.Log("ShadowPlayer1 hit");
+            sceneManaging.ShowPlayer2WinLabel();
+            sceneManaging.LoadEndSceneWait();
+            collision.GetComponent<ShadowBehaviour>().player_parent.GetComponent<PlayerController>().DieInPast();
+            Destroy(this.gameObject);
+        }
+
+        else if (collision.transform.tag == "ShadowPlayer2" && parentTag != "Player2")
+        {
+            Debug.Log("ShadowPlayer2 hit");
+            sceneManaging.ShowPlayer1WinLabel();
+            sceneManaging.LoadEndSceneWait();
+            collision.GetComponent<ShadowBehaviour>().player_parent.GetComponent<SecondPlayerController>().DieInPast();
+            Destroy(this.gameObject);
+        }
     }
 }
 

@@ -11,6 +11,9 @@ public class ShadowBehaviour : MonoBehaviour
 
     private bool do_action = false;
 
+    [HideInInspector]
+    public GameObject player_parent = null;
+
     [SerializeField]
     private float delay = 0.5f;
     private float actual_time = 0.0f;
