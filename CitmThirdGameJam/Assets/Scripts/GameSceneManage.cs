@@ -12,6 +12,9 @@ public class GameSceneManage : MonoBehaviour
     public float secondsToFinishScreen = 0.0f;
     public bool do_actions = true;
 
+    public Animator transition;
+    public float transitionTime = 1.0f;
+
     void Start()
     {
 
@@ -24,7 +27,7 @@ public class GameSceneManage : MonoBehaviour
 
     public void LoadMainScene()
     {
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(LoadSceneFade("MainScene"));
     }
 
 
@@ -33,6 +36,14 @@ public class GameSceneManage : MonoBehaviour
         yield return new WaitForSeconds(secondsToFinishScreen);
         Debug.Log("ENTRA");
         SceneManager.LoadScene("FinishScene");
+
+    }
+
+    IEnumerator LoadSceneFade(string scene)
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(scene);
 
     }
 
