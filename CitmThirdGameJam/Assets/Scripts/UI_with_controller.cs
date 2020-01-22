@@ -119,10 +119,5 @@ public class UI_with_controller : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(start.gameObject);
             selected_butt = ButtonSelected.Button_Start;
         }
-        else
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            selected_butt = ButtonSelected.Button_None;
-        }
     }
 }
