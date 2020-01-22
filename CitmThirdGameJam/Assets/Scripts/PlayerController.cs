@@ -19,7 +19,11 @@ public class PlayerController : MonoBehaviour
     public KeyCode left_input;
     public KeyCode right_input;
     public KeyCode shoot_input;
-    
+
+    public AudioClip shoot;
+    public AudioClip dead_past;
+    public AudioClip dead_present;
+
 
     public float speed = 0.0f;
 
@@ -198,6 +202,9 @@ public class PlayerController : MonoBehaviour
 
         GameObject newBullet = Instantiate(Bullet, bulletPos, Quaternion.identity);
 
+        gameObject.GetComponent<AudioSource>().clip = shoot;
+        gameObject.GetComponent<AudioSource>().Play();
+
         newBullet.GetComponent<BulletMovement>().parentTag = transform.tag;
 
         if (animator.GetInteger("State") == 0 || lastState == AnimStates.UP)
@@ -240,6 +247,8 @@ public class PlayerController : MonoBehaviour
         /*animator.setAnimation("PlayerDie")*/
         //animator.SetInteger("State", 6);
         animator.Play("DeadPlayer");
+        gameObject.GetComponent<AudioSource>().clip = dead_present;
+        gameObject.GetComponent<AudioSource>().Play();
         //Swap position with shadow
         transform.position = shadow_child.transform.position;
         //Delete old shadow
@@ -251,6 +260,8 @@ public class PlayerController : MonoBehaviour
     public void DieInPast()
     {
         animator.SetInteger("State", 7);
+        gameObject.GetComponent<AudioSource>().clip = dead_past;
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     public void stopShoot()
