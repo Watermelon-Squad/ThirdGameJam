@@ -64,6 +64,8 @@ public class SecondPlayerController : MonoBehaviour
 
     void Update()
     {
+        bool second_controller = false;
+
         if (!playerIndexSet || !prevState.IsConnected)
         {
             for (int i = 0; i < 4; ++i)
@@ -72,12 +74,21 @@ public class SecondPlayerController : MonoBehaviour
                 GamePadState testState = GamePad.GetState(testPlayerIndex);
                 if (testState.IsConnected)
                 {
+              
                     Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
                     playerIndex = testPlayerIndex;
                     playerIndexSet = true;
+
+                    if (second_controller)
+                    {
+                        break;
+                    }
+
+                    second_controller = true;
                 }
             }
         }
+
 
         prevState = state;
         state = GamePad.GetState(playerIndex);
@@ -86,7 +97,7 @@ public class SecondPlayerController : MonoBehaviour
         {
             if (actual_shoot_time >= shoot_time)
             {
-                if (state.ThumbSticks.Right.Y > 0.1f || Input.GetKey(up_input))
+                if (state.ThumbSticks.Left.Y > 0.1f || Input.GetKey(up_input))
                 {
                     rigidbody2D.AddForce(Vector2.up * speed * Time.deltaTime);
                     // pos.y += speed * Time.deltaTime;
@@ -99,7 +110,7 @@ public class SecondPlayerController : MonoBehaviour
                         animator.SetBool("Idle", false);
                     }
                 }
-                else if (state.ThumbSticks.Right.Y < -0.1f || Input.GetKey(down_input))
+                else if (state.ThumbSticks.Left.Y < -0.1f || Input.GetKey(down_input))
                 {
                     rigidbody2D.AddForce(Vector2.down * speed * Time.deltaTime);
                     //pos.y -= speed * Time.deltaTime;
@@ -112,7 +123,7 @@ public class SecondPlayerController : MonoBehaviour
                         animator.SetBool("Idle", false);
                     }
                 }
-                else if (state.ThumbSticks.Right.X > 0.1f || Input.GetKey(right_input))
+                else if (state.ThumbSticks.Left.X > 0.1f || Input.GetKey(right_input))
                 {
                     rigidbody2D.AddForce(Vector2.right * speed * Time.deltaTime);
                     //pos.x += speed * Time.deltaTime;
@@ -126,7 +137,7 @@ public class SecondPlayerController : MonoBehaviour
                     }
                     //sprite.flipX = false;
                 }
-                else if (state.ThumbSticks.Right.X < -0.1f || Input.GetKey(left_input))
+                else if (state.ThumbSticks.Left.X < -0.1f || Input.GetKey(left_input))
                 {
                     rigidbody2D.AddForce(Vector2.left * speed * Time.deltaTime);
                     //pos.x -= speed * Time.deltaTime;
@@ -165,7 +176,7 @@ public class SecondPlayerController : MonoBehaviour
 
             if (actual_cooldown >= cooldown_shoot)
             {
-                if (state.Buttons.RightShoulder == ButtonState.Pressed || Input.GetKey(shoot_input))
+                if (state.Buttons.LeftShoulder == ButtonState.Pressed || Input.GetKey(shoot_input))
                 {
                     actual_cooldown = 0.0f;
                     actual_shoot_time = 0.0f;
