@@ -64,6 +64,9 @@ public class BulletMovement : MonoBehaviour
                 //Win condition for player 1 and lose for player 2
                 sceneManaging.ShowPlayer1WinLabel();
                 sceneManaging.LoadEndSceneWait();
+
+                collision.transform.GetComponent<PlayerController>().DieInPast();
+
                 Destroy(gameObject);
             }
             else if (parentTag != "Player2" && collision.transform.tag == "ShadowPlayer2")
@@ -71,6 +74,9 @@ public class BulletMovement : MonoBehaviour
                 //Win condition for player 2 and lose for player 1
                 sceneManaging.ShowPlayer2WinLabel();
                 sceneManaging.LoadEndSceneWait();
+
+                collision.transform.GetComponent<PlayerController>().DieInPast();
+
                 Destroy(gameObject);
             }
             else
