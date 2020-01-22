@@ -231,21 +231,19 @@ public class PlayerController : MonoBehaviour
                 shadow_child = Instantiate(shadow1, position);
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
-        shadow_child.GetComponent<ShadowBehaviour>().player_parent = gameObject;
     }
 
     public void DieInPresent()
     {
         //Player Die
         /*animator.setAnimation("PlayerDie")*/
+        animator.SetInteger("State", 6);
         //Swap position with shadow
         transform.position = shadow_child.transform.position;
         //Delete old shadow
         Destroy(shadow_child);
         //Create new shadow in last player position
         InstanciateShadow(transform);
-
-        animator.SetInteger("State", 6);
     }
 
     public void DieInPast()
