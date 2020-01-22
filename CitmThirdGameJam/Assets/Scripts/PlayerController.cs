@@ -231,6 +231,7 @@ public class PlayerController : MonoBehaviour
                 shadow_child = Instantiate(shadow1, position);
 
         shadow_child.GetComponent<ShadowBehaviour>().setVel(speed);
+        shadow_child.GetComponent<ShadowBehaviour>().player_parent = gameObject;
     }
 
     public void DieInPresent()
