@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class StorySkip : MonoBehaviour
 {
     public GameObject[] story;
+    public GameSceneManage sceneManage;
+
     int i = 0;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,8 @@ public class StorySkip : MonoBehaviour
 
         if(i == 3)
         {
-            SceneManager.LoadScene("MainScene");
+            if (sceneManage)
+                sceneManage.LoadMainScene();
         }
     }
 }

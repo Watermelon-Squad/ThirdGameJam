@@ -27,9 +27,14 @@ public class GameSceneManage : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadMainScene()
+    public void LoadStoryScene()
     {
         StartCoroutine(LoadSceneFade("Story"));
+    }
+
+    public void LoadMainScene()
+    {
+        StartCoroutine(LoadSceneFade("MainScene"));
     }
 
 

@@ -299,7 +299,7 @@ MonoBehaviour:
   p2WinLabelGO: {fileID: 0}
   secondsToFinishScreen: 1
   do_actions: 1
-  transition: {fileID: 0}
+  transition: {fileID: 1616561636}
   transitionTime: 1
 --- !u!4 &785189401
 Transform:
@@ -540,7 +540,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468267442}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
   - {fileID: 1302107771}
   - {fileID: 792103078}
   - {fileID: 716898796}
+  sceneManage: {fileID: 785189400}
 --- !u!114 &1616561632
 MonoBehaviour:
   m_ObjectHideFlags: 0
